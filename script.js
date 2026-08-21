@@ -1,305 +1,862 @@
-// ============================================
-// SPLASH SCREEN — 5 SECONDS | 3D CUBE + PARTICLES
-// ============================================
-const splash = document.getElementById('splash');
-const splashCounter = document.getElementById('splashCounter');
-const splashBarFill = document.getElementById('splashBarFill');
-const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-const alreadyVisited = sessionStorage.getItem('za_splash_shown');
+/* =========================================================
+   ZRAR AKBAR — PORTFOLIO ENGINE
+========================================================= */
 
-// ========== PARTICLE SYSTEM ==========
-function initParticles() {
-  const canvas = document.getElementById('particleCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let w, h, particles = [];
-  const count = 80;
+"use strict";
 
-  function resize() {
-    w = canvas.width = canvas.parentElement.offsetWidth;
-    h = canvas.height = canvas.parentElement.offsetHeight;
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+const $ = (selector, parent = document) =>
+  parent.querySelector(selector);
+
+const $$ = (selector, parent = document) =>
+  [...parent.querySelectorAll(selector)];
+
+
+/* =========================================================
+   BODY LOADING
+========================================================= */
+
+document.body.classList.add("loading");
+
+
+/* =========================================================
+   SPLASH SCREEN
+========================================================= */
+
+const splash = $("#splash");
+const splashCounter = $("#splashCounter");
+const splashBarFill = $("#splashBarFill");
+
+let splashProgress = 0;
+
+const splashTimer = setInterval(() => {
+
+  splashProgress += Math.floor(Math.random() * 8) + 2;
+
+  if (splashProgress >= 100) {
+    splashProgress = 100;
+    clearInterval(splashTimer);
+
+    setTimeout(() => {
+
+      splash.classList.add("is-hidden");
+      document.body.classList.remove("loading");
+
+      revealHero();
+
+    }, 450);
   }
-  resize();
-  window.addEventListener('resize', resize);
 
-  class Particle {
-    constructor() {
-      this.reset();
+  if (splashCounter) {
+    splashCounter.textContent = splashProgress;
+  }
+
+  if (splashBarFill) {
+    splashBarFill.style.width = `${splashProgress}%`;
+  }
+
+}, 65);
+
+
+/* =========================================================
+   PARTICLE CANVAS
+========================================================= */
+
+const canvas = $("#particleCanvas");
+
+if (canvas) {
+
+  const ctx = canvas.getContext("2d");
+
+  let particles = [];
+  let width = 0;
+  let height = 0;
+
+  function resizeCanvas() {
+
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+
+  }
+
+  function createParticles() {
+
+    particles = [];
+
+    const amount = Math.min(
+      140,
+      Math.floor((width * height) / 11000)
+    );
+
+    for (let i = 0; i < amount; i++) {
+
+      particles.push({
+
+        x: Math.random() * width,
+        y: Math.random() * height,
+
+        radius: Math.random() * 1.5 + 0.3,
+
+        speedX: (Math.random() - 0.5) * 0.25,
+        speedY: (Math.random() - 0.5) * 0.25,
+
+        opacity: Math.random() * 0.6 + 0.15
+
+      });
+
     }
-    reset() {
-      this.x = Math.random() * w;
-      this.y = Math.random() * h;
-      this.size = Math.random() * 2 + 0.5;
-      this.speedX = (Math.random() - 0.5) * 0.4;
-      this.speedY = (Math.random() - 0.5) * 0.4;
-      this.opacity = Math.random() * 0.4 + 0.1;
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x < 0 || this.x > w) { this.speedX *= -1; }
-      if (this.y < 0 || this.y > h) { this.speedY *= -1; }
-    }
-    draw() {
+
+  }
+
+  function drawParticles() {
+
+    ctx.clearRect(0, 0, width, height);
+
+    particles.forEach((particle) => {
+
+      particle.x += particle.speedX;
+      particle.y += particle.speedY;
+
+      if (particle.x < 0) particle.x = width;
+      if (particle.x > width) particle.x = 0;
+
+      if (particle.y < 0) particle.y = height;
+      if (particle.y > height) particle.y = 0;
+
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(198, 166, 100, ${this.opacity})`;
+
+      ctx.arc(
+        particle.x,
+        particle.y,
+        particle.radius,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fillStyle =
+        `rgba(255,255,255,${particle.opacity})`;
+
       ctx.fill();
-    }
-  }
 
-  for (let i = 0; i < count; i++) {
-    particles.push(new Particle());
-  }
-
-  function animateParticles() {
-    ctx.clearRect(0, 0, w, h);
-    particles.forEach(p => {
-      p.update();
-      p.draw();
     });
-    // Draw connecting lines
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 100) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(198, 166, 100, ${0.06 * (1 - dist / 100)})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
+
+    requestAnimationFrame(drawParticles);
+
+  }
+
+  resizeCanvas();
+  createParticles();
+  drawParticles();
+
+  window.addEventListener("resize", () => {
+
+    resizeCanvas();
+    createParticles();
+
+  });
+
+}
+
+
+/* =========================================================
+   HERO REVEAL
+========================================================= */
+
+function revealHero() {
+
+  $$(".hero .reveal-up").forEach((element) => {
+    element.classList.add("visible");
+  });
+
+}
+
+
+/* =========================================================
+   INTERSECTION REVEALS
+========================================================= */
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+
+    entries.forEach((entry) => {
+
+      if (entry.isIntersecting) {
+
+        entry.target.classList.add("visible");
+
+        revealObserver.unobserve(entry.target);
+
       }
-    }
-    requestAnimationFrame(animateParticles);
+
+    });
+
+  },
+  {
+    threshold: 0.12
   }
-  animateParticles();
-}
+);
 
-// ========== SPLASH LOGIC ==========
-function exitSplash() {
-  splash.classList.add('exit');
-  document.body.classList.remove('locked');
-  sessionStorage.setItem('za_splash_shown', '1');
-  setTimeout(() => splash.remove(), 900);
-}
-
-if (!splash) {
-  // no splash element
-} else if (alreadyVisited || reduceMotionQuery.matches) {
-  splash.remove();
-  document.body.classList.remove('locked');
-} else {
-  document.body.classList.add('locked');
-  initParticles();
-
-  const SPLASH_DURATION = 5000; // 5 SECONDS — DOMINATING
-  const start = performance.now();
-  let pageLoaded = false;
-
-  window.addEventListener('load', () => { pageLoaded = true; });
-
-  function tick(now) {
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / SPLASH_DURATION, 1);
-    
-    // Use easing for a smooth feel
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const displayPct = Math.round(eased * 100);
-    
-    splashCounter.textContent = displayPct;
-    splashBarFill.style.width = displayPct + '%';
-
-    if (progress >= 1 && pageLoaded) {
-      setTimeout(exitSplash, 300);
-    } else if (progress >= 1 && !pageLoaded) {
-      // Hold at 99% until page loads
-      splashCounter.textContent = '99';
-      splashBarFill.style.width = '99%';
-      // Keep checking
-      if (!pageLoaded) {
-        window.addEventListener('load', () => {
-          setTimeout(exitSplash, 200);
-        });
-      }
-    } else {
-      requestAnimationFrame(tick);
-    }
-  }
-  requestAnimationFrame(tick);
-}
-
-// ============================================
-// CUSTOM CURSOR
-// ============================================
-const cursorDot = document.getElementById('cursorDot');
-const cursorRing = document.getElementById('cursorRing');
-const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-
-if (!isTouch) {
-  let ringX = 0, ringY = 0, mouseX = 0, mouseY = 0;
-
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX; mouseY = e.clientY;
-    cursorDot.style.left = mouseX + 'px';
-    cursorDot.style.top = mouseY + 'px';
-    cursorDot.classList.add('active');
-    cursorRing.classList.add('active');
-  });
-
-  function animateRing() {
-    ringX += (mouseX - ringX) * 0.18;
-    ringY += (mouseY - ringY) * 0.18;
-    cursorRing.style.left = ringX + 'px';
-    cursorRing.style.top = ringY + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  document.querySelectorAll('a, button, .tilt, .drop').forEach(el => {
-    el.addEventListener('mouseenter', () => cursorRing.classList.add('grow'));
-    el.addEventListener('mouseleave', () => cursorRing.classList.remove('grow'));
-  });
-}
-
-// ============================================
-// HERO PARALLAX
-// ============================================
-const heroBg = document.querySelector('.hero-bg');
-const heroSection = document.querySelector('.hero');
-
-if (heroBg && heroSection) {
-  heroSection.addEventListener('mousemove', (e) => {
-    const rect = heroSection.getBoundingClientRect();
-    const relX = (e.clientX - rect.left) / rect.width - 0.5;
-    const relY = (e.clientY - rect.top) / rect.height - 0.5;
-    heroBg.style.setProperty('--px', (relX * 40) + 'px');
-    heroBg.style.setProperty('--py', (relY * 40) + 'px');
-  });
-}
-
-// ============================================
-// 3D TILT ON CARDS — Enhanced
-// ============================================
-document.querySelectorAll('.tilt').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const relX = (e.clientX - rect.left) / rect.width - 0.5;
-    const relY = (e.clientY - rect.top) / rect.height - 0.5;
-    const tiltX = relY * -12;
-    const tiltY = relX * 12;
-    card.style.setProperty('--rx', tiltX + 'deg');
-    card.style.setProperty('--ry', tiltY + 'deg');
-    card.style.setProperty('--tz', '12px');
-    card.style.setProperty('--ty', '-8px');
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.setProperty('--rx', '0deg');
-    card.style.setProperty('--ry', '0deg');
-    card.style.setProperty('--tz', '0px');
-    card.style.setProperty('--ty', '0px');
-  });
+$$(".reveal").forEach((element) => {
+  revealObserver.observe(element);
 });
 
-// ============================================
-// NAVBAR SCROLL STATE
-// ============================================
-const navbar = document.getElementById('navbar');
-const progressFill = document.getElementById('progressFill');
-const timelineFill = document.getElementById('timelineFill');
-const timeline = document.querySelector('.timeline');
 
-function onScroll() {
-  navbar.classList.toggle('scrolled', window.scrollY > 24);
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-  progressFill.style.width = pct + '%';
-
-  if (timeline) {
-    const rect = timeline.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const start = vh * 0.85;
-    const total = rect.height + vh * 0.4;
-    let filled = start - rect.top;
-    filled = Math.max(0, Math.min(filled, total));
-    const fillPct = total > 0 ? (filled / total) * 100 : 0;
-    if (timelineFill) timelineFill.style.height = fillPct + '%';
-  }
-}
-window.addEventListener('scroll', onScroll, { passive: true });
-onScroll();
-
-// ============================================
-// MOBILE NAV TOGGLE
-// ============================================
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
+const navToggle = $("#navToggle");
+const navLinks = $("#navLinks");
 
 if (navToggle && navLinks) {
-  navToggle.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', isOpen);
+
+  navToggle.addEventListener("click", () => {
+
+    const isOpen =
+      navLinks.classList.toggle("open");
+
+    navToggle.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+
   });
 
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
+
+  $$("#navLinks a").forEach((link) => {
+
+    link.addEventListener("click", () => {
+
+      navLinks.classList.remove("open");
+
+      navToggle.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
     });
+
   });
+
 }
 
-// ============================================
-// SCROLL REVEALS — with 3D perspective
-// ============================================
-const revealEls = document.querySelectorAll('.reveal');
 
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in-view');
-      revealObserver.unobserve(entry.target);
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
+
+const progressFill = $("#progressFill");
+
+function updateScrollProgress() {
+
+  const scrollTop = window.scrollY;
+
+  const maxScroll =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+  const progress =
+    maxScroll > 0
+      ? scrollTop / maxScroll
+      : 0;
+
+  if (progressFill) {
+    progressFill.style.width =
+      `${progress * 100}%`;
+  }
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateScrollProgress,
+  { passive: true }
+);
+
+updateScrollProgress();
+
+
+/* =========================================================
+   NAVBAR SCROLL
+========================================================= */
+
+const navbar = $("#navbar");
+
+function updateNavbar() {
+
+  if (!navbar) return;
+
+  if (window.scrollY > 40) {
+
+    navbar.classList.add("scrolled");
+
+  } else {
+
+    navbar.classList.remove("scrolled");
+
+  }
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateNavbar,
+  { passive: true }
+);
+
+
+/* =========================================================
+   HERO PARALLAX
+========================================================= */
+
+const heroInner = $("#heroInner");
+const heroOrbit = $(".hero-orbit-system");
+const heroSatellite = $(".hero-satellite");
+
+let ticking = false;
+
+function updateParallax() {
+
+  if (ticking) return;
+
+  ticking = true;
+
+  requestAnimationFrame(() => {
+
+    const scrollY = window.scrollY;
+
+    if (heroInner && scrollY < window.innerHeight) {
+
+      heroInner.style.transform =
+        `translate3d(0, ${scrollY * 0.10}px, 0)`;
+
     }
+
+    if (heroOrbit && scrollY < window.innerHeight * 1.5) {
+
+      heroOrbit.style.marginTop =
+        `${scrollY * 0.08}px`;
+
+      heroOrbit.style.rotate =
+        `${scrollY * 0.025}deg`;
+
+    }
+
+    if (heroSatellite) {
+
+      heroSatellite.style.transform =
+        `translate3d(
+          ${Math.sin(scrollY * 0.01) * 15}px,
+          ${Math.cos(scrollY * 0.008) * 15}px,
+          0
+        ) rotate(-12deg)`;
+
+    }
+
+    ticking = false;
+
   });
-}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
-revealEls.forEach(el => revealObserver.observe(el));
+}
 
-// ============================================
-// MAGNETIC BUTTONS — with 3D depth
-// ============================================
-const magnets = document.querySelectorAll('.magnetic');
+window.addEventListener(
+  "scroll",
+  updateParallax,
+  { passive: true }
+);
 
-magnets.forEach(btn => {
-  const strength = 20;
 
-  btn.addEventListener('mousemove', (e) => {
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const dist = Math.sqrt(x*x + y*y);
-    const maxDist = Math.max(rect.width, rect.height) / 2;
-    const intensity = Math.min(1, dist / maxDist);
-    btn.style.transform = `translate(${(x / rect.width) * strength}px, ${(y / rect.height) * strength}px) scale(${1 + intensity * 0.02})`;
+/* =========================================================
+   MOUSE TILT
+========================================================= */
+
+const tiltElements = $$(".tilt");
+
+tiltElements.forEach((element) => {
+
+  element.addEventListener("mousemove", (event) => {
+
+    if (window.innerWidth < 800) return;
+
+    const rect =
+      element.getBoundingClientRect();
+
+    const x =
+      event.clientX - rect.left;
+
+    const y =
+      event.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX =
+      ((y - centerY) / centerY) * -3;
+
+    const rotateY =
+      ((x - centerX) / centerX) * 3;
+
+    element.style.transform =
+      `perspective(900px)
+       rotateX(${rotateX}deg)
+       rotateY(${rotateY}deg)
+       translateY(-3px)`;
+
   });
 
-  btn.addEventListener('mouseleave', () => {
-    btn.style.transform = 'translate(0,0) scale(1)';
+
+  element.addEventListener("mouseleave", () => {
+
+    element.style.transform = "";
+
   });
+
 });
 
-// ============================================
-// RESPECT REDUCED MOTION
-// ============================================
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (prefersReduced) {
-  revealEls.forEach(el => el.classList.add('in-view'));
+
+/* =========================================================
+   MAGNETIC BUTTONS
+========================================================= */
+
+const magneticButtons =
+  $$(".magnetic");
+
+magneticButtons.forEach((button) => {
+
+  button.addEventListener("mousemove", (event) => {
+
+    if (window.innerWidth < 800) return;
+
+    const rect =
+      button.getBoundingClientRect();
+
+    const x =
+      event.clientX - rect.left - rect.width / 2;
+
+    const y =
+      event.clientY - rect.top - rect.height / 2;
+
+    button.style.transform =
+      `translate(${x * 0.12}px, ${y * 0.12}px)`;
+
+  });
+
+
+  button.addEventListener("mouseleave", () => {
+
+    button.style.transform = "";
+
+  });
+
+});
+
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+const cursorDot = $("#cursorDot");
+const cursorRing = $("#cursorRing");
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+let ringX = mouseX;
+let ringY = mouseY;
+
+window.addEventListener("mousemove", (event) => {
+
+  mouseX = event.clientX;
+  mouseY = event.clientY;
+
+  if (cursorDot) {
+
+    cursorDot.style.left =
+      `${mouseX}px`;
+
+    cursorDot.style.top =
+      `${mouseY}px`;
+
+  }
+
+});
+
+function animateCursor() {
+
+  ringX += (mouseX - ringX) * 0.13;
+  ringY += (mouseY - ringY) * 0.13;
+
+  if (cursorRing) {
+
+    cursorRing.style.left =
+      `${ringX}px`;
+
+    cursorRing.style.top =
+      `${ringY}px`;
+
+  }
+
+  requestAnimationFrame(animateCursor);
+
 }
 
-console.log('🚀 Zrar Akbar — Portfolio Dominating');
-console.log('📦 3D Splash Screen | 5 Seconds | Particles | Full 3D Touch');
+animateCursor();
+
+
+$$("a, button, input, textarea").forEach((element) => {
+
+  element.addEventListener("mouseenter", () => {
+
+    cursorRing?.classList.add("active");
+
+  });
+
+  element.addEventListener("mouseleave", () => {
+
+    cursorRing?.classList.remove("active");
+
+  });
+
+});
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const timeline =
+  $(".timeline");
+
+const timelineFill =
+  $("#timelineFill");
+
+function updateTimeline() {
+
+  if (!timeline || !timelineFill) return;
+
+  const rect =
+    timeline.getBoundingClientRect();
+
+  const viewport =
+    window.innerHeight;
+
+  const start =
+    viewport * 0.75;
+
+  const distance =
+    viewport - start;
+
+  const progress =
+    Math.min(
+      1,
+      Math.max(
+        0,
+        (start - rect.top) /
+        Math.max(1, rect.height - distance)
+      )
+    );
+
+  timelineFill.style.height =
+    `${progress * 100}%`;
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateTimeline,
+  { passive: true }
+);
+
+updateTimeline();
+
+
+/* =========================================================
+   ORBIT DEPTH RESPONSE
+========================================================= */
+
+const solarSystem =
+  $(".solar-system");
+
+function updateSolarDepth() {
+
+  if (!solarSystem) return;
+
+  const rect =
+    solarSystem.getBoundingClientRect();
+
+  const viewportCenter =
+    window.innerHeight / 2;
+
+  const elementCenter =
+    rect.top + rect.height / 2;
+
+  const distance =
+    elementCenter - viewportCenter;
+
+  const rotation =
+    distance * -0.018;
+
+  const scale =
+    1 - Math.min(
+      0.08,
+      Math.abs(distance) / 7000
+    );
+
+  solarSystem.style.transform =
+    `perspective(1000px)
+     rotateX(${rotation}deg)
+     scale(${scale})`;
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateSolarDepth,
+  { passive: true }
+);
+
+updateSolarDepth();
+
+
+/* =========================================================
+   CONTACT FORM
+   FLYRANK WEEK 6 — ONE LIVE FEATURE
+========================================================= */
+
+const contactForm =
+  $("#contactForm");
+
+const formStatus =
+  $("#formStatus");
+
+if (contactForm) {
+
+  contactForm.addEventListener(
+    "submit",
+    async (event) => {
+
+      event.preventDefault();
+
+      const submitButton =
+        $(".form-submit", contactForm);
+
+      const originalText =
+        submitButton
+          ? submitButton.textContent
+          : "";
+
+      if (formStatus) {
+
+        formStatus.className =
+          "form-status";
+
+        formStatus.textContent =
+          "TRANSMITTING MESSAGE...";
+
+      }
+
+      if (submitButton) {
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+          "Sending...";
+
+      }
+
+      try {
+
+        const formData =
+          new FormData(contactForm);
+
+        const response =
+          await fetch(
+            contactForm.action,
+            {
+              method: "POST",
+              body: formData,
+              headers: {
+                Accept:
+                  "application/json"
+              }
+            }
+          );
+
+
+        if (response.ok) {
+
+          contactForm.reset();
+
+          if (formStatus) {
+
+            formStatus.className =
+              "form-status success";
+
+            formStatus.textContent =
+              "MESSAGE RECEIVED — THANK YOU.";
+
+          }
+
+        } else {
+
+          throw new Error(
+            "Submission failed."
+          );
+
+        }
+
+      } catch (error) {
+
+        if (formStatus) {
+
+          formStatus.className =
+            "form-status error";
+
+          formStatus.textContent =
+            "TRANSMISSION FAILED — PLEASE TRY AGAIN.";
+
+        }
+
+      } finally {
+
+        if (submitButton) {
+
+          submitButton.disabled = false;
+
+          submitButton.textContent =
+            originalText || "Send Message";
+
+        }
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   CONTACT ORBIT MOTION
+========================================================= */
+
+const contactLayer =
+  $(".contact-space-layer");
+
+function updateContactOrbit() {
+
+  if (!contactLayer) return;
+
+  const rect =
+    contactLayer.getBoundingClientRect();
+
+  const center =
+    window.innerHeight / 2;
+
+  const distance =
+    rect.top + rect.height / 2 - center;
+
+  const rotation =
+    distance * 0.025;
+
+  contactLayer.style.transform =
+    `translateY(-50%) rotate(${rotation}deg)`;
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateContactOrbit,
+  { passive: true }
+);
+
+
+/* =========================================================
+   ACTIVE SECTION LINK
+========================================================= */
+
+const sections =
+  $$("main section[id]");
+
+const navAnchors =
+  $$("#navLinks a[href^='#']");
+
+const sectionObserver =
+  new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if (!entry.isIntersecting) return;
+
+        navAnchors.forEach((link) => {
+
+          link.classList.remove("active");
+
+          if (
+            link.getAttribute("href") ===
+            `#${entry.target.id}`
+          ) {
+
+            link.classList.add("active");
+
+          }
+
+        });
+
+      });
+
+    },
+    {
+      rootMargin:
+        "-35% 0px -55% 0px"
+    }
+  );
+
+sections.forEach((section) => {
+
+  sectionObserver.observe(section);
+
+});
+
+
+/* =========================================================
+   KEYBOARD ACCESSIBILITY
+========================================================= */
+
+document.addEventListener("keydown", (event) => {
+
+  if (event.key === "Escape") {
+
+    navLinks?.classList.remove("open");
+
+    navToggle?.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
+  }
+
+});
+
+
+/* =========================================================
+   INITIAL UPDATE
+========================================================= */
+
+window.addEventListener(
+  "load",
+  () => {
+
+    updateScrollProgress();
+    updateNavbar();
+    updateTimeline();
+    updateSolarDepth();
+    updateContactOrbit();
+
+  }
+);
