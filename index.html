@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zrar Akbar — Developer & AI/ML Enthusiast</title>
-<meta name="description" content="Muhammad Zrar Akbar — Computer Science undergraduate in Machine Learning & Data Science. Machine Learning Intern at FlyRank AI. Creator of TRIORA, SkilLink and MediBot.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>Zrar Akbar — Developer & AI/ML Enthusiast</title>
 
-<link rel="stylesheet" href="style.css">
+  <meta
+    name="description"
+    content="Muhammad Zrar Akbar — Computer Science undergraduate specializing in Python, AI, machine learning, data and software development."
+  >
+
+  <meta name="theme-color" content="#f5f1e8">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- Splash screen: 3D monogram cube -->
+<!-- =========================================================
+     SPLASH
+========================================================= -->
+
 <div class="splash" id="splash">
+
+  <canvas id="particleCanvas"></canvas>
+
   <div class="splash-inner">
+
     <div class="splash-cube-wrap">
       <div class="splash-cube" id="splashCube">
         <span class="splash-face face-front">Z</span>
@@ -28,406 +47,1631 @@
 
     <div class="splash-meta">
       <span class="splash-counter" id="splashCounter">0</span>
-      <div class="splash-bar"><span id="splashBarFill"></span></div>
+
+      <div class="splash-bar">
+        <span id="splashBarFill"></span>
+      </div>
+
       <p class="splash-label">LOADING PORTFOLIO</p>
     </div>
+
   </div>
 
   <div class="splash-panel panel-l"></div>
   <div class="splash-panel panel-r"></div>
+
 </div>
 
-<!-- Custom cursor -->
+
+<!-- =========================================================
+     CURSOR / GLOBAL EFFECTS
+========================================================= -->
+
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
 <div class="grain"></div>
-<div class="progress-line"><span id="progressFill"></span></div>
 
-<!-- Marquee announcement bar -->
-<div class="marquee-bar" aria-hidden="true">
-  <div class="marquee-track">
-    <span>PYTHON</span><span class="dot">·</span><span>MACHINE LEARNING</span><span class="dot">·</span>
-    <span>FIREBASE</span><span class="dot">·</span><span>FLUTTER</span><span class="dot">·</span>
-    <span>MYSQL</span><span class="dot">·</span><span>DATA ENGINEERING</span><span class="dot">·</span>
-    <span>OOP</span><span class="dot">·</span><span>SCIKIT-LEARN</span><span class="dot">·</span>
-    <span>PYTHON</span><span class="dot">·</span><span>MACHINE LEARNING</span><span class="dot">·</span>
-    <span>FIREBASE</span><span class="dot">·</span><span>FLUTTER</span><span class="dot">·</span>
-    <span>MYSQL</span><span class="dot">·</span><span>DATA ENGINEERING</span><span class="dot">·</span>
-    <span>OOP</span><span class="dot">·</span><span>SCIKIT-LEARN</span><span class="dot">·</span>
-  </div>
+<div class="progress-line">
+  <span id="progressFill"></span>
 </div>
 
-<header>
-  <nav class="navbar" id="navbar">
-    <a href="#top" class="logo">ZRAR<span>·</span>AKBAR</a>
 
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+<!-- =========================================================
+     MARQUEE
+========================================================= -->
+
+<div class="marquee-bar" aria-hidden="true">
+
+  <div class="marquee-track">
+
+    <span>PYTHON</span>
+    <span class="dot">·</span>
+
+    <span>MACHINE LEARNING</span>
+    <span class="dot">·</span>
+
+    <span>AI</span>
+    <span class="dot">·</span>
+
+    <span>WEB DEVELOPMENT</span>
+    <span class="dot">·</span>
+
+    <span>FLUTTER</span>
+    <span class="dot">·</span>
+
+    <span>DATA</span>
+    <span class="dot">·</span>
+
+    <span>PYTHON</span>
+    <span class="dot">·</span>
+
+    <span>MACHINE LEARNING</span>
+    <span class="dot">·</span>
+
+    <span>AI</span>
+    <span class="dot">·</span>
+
+    <span>WEB DEVELOPMENT</span>
+    <span class="dot">·</span>
+
+    <span>FLUTTER</span>
+    <span class="dot">·</span>
+
+    <span>DATA</span>
+    <span class="dot">·</span>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header>
+
+  <nav class="navbar" id="navbar">
+
+    <a href="#top" class="logo tilt-logo">
+      ZRAR<span>·</span>AKBAR
+    </a>
+
+    <button
+      class="nav-toggle"
+      id="navToggle"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
 
     <div class="nav-links" id="navLinks">
-      <a href="#about"><span>01</span>About</a>
-      <a href="#skills"><span>02</span>Skills</a>
-      <a href="#projects"><span>03</span>Work</a>
-      <a href="#experience"><span>04</span>Experience</a>
-      <a href="#certifications"><span>05</span>Certs</a>
-      <a href="#contact"><span>06</span>Contact</a>
-      <a href="assets/cv.pdf" target="_blank" class="nav-cv">View CV</a>
+
+      <a href="#about">
+        <span>01</span>
+        About
+      </a>
+
+      <a href="#skills">
+        <span>02</span>
+        Skills
+      </a>
+
+      <a href="#projects">
+        <span>03</span>
+        Work
+      </a>
+
+      <a href="#experience">
+        <span>04</span>
+        Experience
+      </a>
+
+      <a href="#certifications">
+        <span>05</span>
+        Certs
+      </a>
+
+      <a href="#contact">
+        <span>06</span>
+        Contact
+      </a>
+
+      <a
+        href="assets/cv.pdf"
+        target="_blank"
+        rel="noopener"
+        class="nav-cv"
+      >
+        View CV
+      </a>
+
     </div>
+
   </nav>
+
 </header>
+
 
 <main id="top">
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg" aria-hidden="true">
-      <div class="blob blob-a"></div>
-      <div class="blob blob-b"></div>
-    </div>
 
-    <div class="hero-badge-3d reveal-up" style="--d:1" aria-hidden="true">
-      <div class="badge-face">
-        <span class="badge-dot">OPEN TO WORK</span> 
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+  <div class="hero-bg" aria-hidden="true">
+
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+
+  </div>
+
+
+  <!-- Subtle orbital system -->
+
+  <div class="hero-orbit-system" aria-hidden="true">
+
+    <div class="orbit orbit-one">
+      <div class="orbit-node node-python">
+        <span>PYTHON</span>
       </div>
     </div>
 
-    <div class="hero-inner">
-      <p class="eyebrow reveal-up" style="--d:0">MACHINE LEARNING & DATA SCIENCE — SAHIWAL, PAKISTAN</p>
+    <div class="orbit orbit-two">
+      <div class="orbit-node node-ai">
+        <span>AI</span>
+      </div>
+    </div>
 
-      <h1 class="hero-title">
-        <span class="line reveal-up" style="--d:1">Software,</span>
-        <span class="line reveal-up" style="--d:2">stitched with</span>
-        <span class="line reveal-up italic" style="--d:3">intelligence<span class="dot-accent">.</span></span>
-      </h1>
+    <div class="orbit orbit-three">
+      <div class="orbit-node node-ml">
+        <span>ML</span>
+      </div>
+    </div>
 
-      <p class="hero-sub reveal-up" style="--d:4">
-        I'm Muhammad Zrar Akbar — a Computer Science undergraduate at COMSATS
-        University Islamabad, currently a <strong>Machine Learning Intern at
-        FlyRank AI</strong>. I build data-driven systems, rule-based AI
-        engines, and full-stack platforms — from <strong>TRIORA</strong>, a
-        fashion e-commerce platform, to <strong>MediBot</strong>, a live
-        AI health assistant, to prediction models trained on pandas and
-        scikit-learn.
+    <div class="orbit orbit-four">
+      <div class="orbit-node node-web">
+        <span>WEB</span>
+      </div>
+    </div>
+
+    <div class="orbit orbit-five">
+      <div class="orbit-node node-flutter">
+        <span>FLUTTER</span>
+      </div>
+    </div>
+
+    <div class="orbit-core">
+      <span>ZA</span>
+    </div>
+
+  </div>
+
+
+  <div class="hero-satellite" aria-hidden="true">
+    <div class="satellite-body"></div>
+    <div class="satellite-panel satellite-panel-left"></div>
+    <div class="satellite-panel satellite-panel-right"></div>
+    <div class="satellite-signal"></div>
+  </div>
+
+
+  <div class="hero-badge-3d reveal-up" style="--d:1">
+
+    <div class="badge-face">
+
+      <span class="badge-pulse"></span>
+
+      OPEN TO WORK
+
+    </div>
+
+  </div>
+
+
+  <div class="hero-inner" id="heroInner">
+
+    <p class="eyebrow reveal-up" style="--d:0">
+      MACHINE LEARNING &amp; DATA SCIENCE — SAHIWAL, PAKISTAN
+    </p>
+
+
+    <h1 class="hero-title">
+
+      <span class="line reveal-up" style="--d:1">
+        Software,
+      </span>
+
+      <span class="line reveal-up" style="--d:2">
+        stitched with
+      </span>
+
+      <span class="line reveal-up italic" style="--d:3">
+
+        intelligence<span class="dot-accent">.</span>
+
+      </span>
+
+    </h1>
+
+
+    <p class="hero-sub reveal-up" style="--d:4">
+
+      I'm Muhammad Zrar Akbar — a Computer Science undergraduate at
+      COMSATS University Islamabad, currently a
+      <strong>Machine Learning Intern at FlyRank AI</strong>.
+      I build data-driven systems, rule-based AI engines, and
+      full-stack platforms — from <strong>TRIORA</strong>, a fashion
+      e-commerce platform, to <strong>MediBot</strong>, an AI health
+      assistant, to machine-learning workflows built with pandas
+      and scikit-learn.
+
+    </p>
+
+
+    <div class="hero-actions reveal-up" style="--d:5">
+
+      <a
+        href="https://github.com/ZRARAKBAR"
+        target="_blank"
+        rel="noopener"
+        class="btn btn-primary magnetic"
+      >
+        <span>GitHub</span>
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/muhammad-zrar-akbar-5656ba365"
+        target="_blank"
+        rel="noopener"
+        class="btn btn-ghost magnetic"
+      >
+        <span>LinkedIn</span>
+      </a>
+
+      <a
+        href="assets/cv.pdf"
+        target="_blank"
+        rel="noopener"
+        class="btn btn-ghost magnetic"
+      >
+        <span>View CV</span>
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="scroll-cue" aria-hidden="true">
+
+    <span>SCROLL</span>
+
+    <div class="scroll-line">
+      <i></i>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ORBITAL INTRO
+========================================================= -->
+
+<section class="section universe-section">
+
+  <div class="universe-background" aria-hidden="true">
+
+    <div class="universe-star star-1"></div>
+    <div class="universe-star star-2"></div>
+    <div class="universe-star star-3"></div>
+    <div class="universe-star star-4"></div>
+    <div class="universe-star star-5"></div>
+    <div class="universe-star star-6"></div>
+
+  </div>
+
+
+  <div class="section-head reveal">
+
+    <p class="section-label">
+      00 — The System
+    </p>
+
+    <h2>
+      One system.
+      <span class="italic">Many orbiting ideas.</span>
+    </h2>
+
+  </div>
+
+
+  <div class="system-layout">
+
+    <div class="system-copy reveal">
+
+      <p>
+        I think of software as a connected system rather than isolated
+        technologies. Python powers the logic. Machine learning turns
+        data into predictions. AI gives systems intelligence. Web
+        development turns ideas into usable products. Flutter takes
+        those ideas beyond the browser.
       </p>
 
-      <div class="hero-actions reveal-up" style="--d:5">
-        <a href="https://github.com/ZRARAKBAR" target="_blank" class="btn btn-primary magnetic">
-          <span>GitHub</span>
-        </a>
-        <a href="https://www.linkedin.com/in/muhammad-zrar-akbar-5656ba365" target="_blank" class="btn btn-ghost magnetic">
-          <span>LinkedIn</span>
-        </a>
-        <a href="assets/cv.pdf" target="_blank" class="btn btn-ghost magnetic">
-          <span>View CV</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="scroll-cue" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"><i></i></div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="section about">
-    <div class="section-head reveal">
-      <p class="section-label">01 — About</p>
-      <h2>Building, learning, <span class="italic">experimenting.</span></h2>
-    </div>
-
-    <div class="about-grid">
-      <div class="about-copy reveal">
-        <p>
-          I'm a Computer Science undergraduate specializing in Python, data
-          preprocessing, and machine learning workflows. I build data-driven
-          systems, rule-based AI engines, and motion-optimization software —
-          from full-stack platforms with real users to small AI engines that
-          solve one problem well.
-        </p>
-        <p>
-          I'm currently a <strong>Machine Learning Intern at FlyRank AI</strong>,
-          collaborating with senior team members to enhance AI capabilities
-          and algorithms — recent focus has been predictive content-refresh
-          prioritization models built on pandas and scikit-learn, and
-          optimizing conversational logic pipelines in Python.
-        </p>
-      </div>
-
-      <div class="spec-card reveal tilt">
-        <p class="spec-title">Spec sheet</p>
-        <dl>
-  <div class="spec-row"><dt>Status</dt><dd>BS, Computer Science</dd></div>
-  <div class="spec-row"><dt>Institution</dt><dd>COMSATS University Islamabad, Sahiwal</dd></div>
-  <div class="spec-row"><dt>Expected</dt><dd>2028 · Semester 6</dd></div>
-  <div class="spec-row"><dt>CGPA</dt><dd>2.79 / 4.00</dd></div>
-  <div class="spec-row"><dt>Focus</dt><dd>Python · Data · AI/ML</dd></div>
-  <div class="spec-row"><dt>Based in</dt><dd>Sahiwal, Punjab, PK</dd></div>
-</dl>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="section skills">
-    <div class="section-head reveal">
-      <p class="section-label">02 — Skills</p>
-      <h2>The stack behind <span class="italic">the work.</span></h2>
-    </div>
-
-    <div class="skills-grid">
-      <div class="skill-card reveal tilt">
-        <span class="skill-index">A</span>
-        <h3>Languages</h3>
-        <p>Python, C++, Java, SQL</p>
-      </div>
-      <div class="skill-card reveal tilt">
-        <span class="skill-index">B</span>
-        <h3>Machine Learning &amp; Data</h3>
-        <p>NumPy, Pandas, Scikit-Learn, Data Preprocessing, Feature Engineering</p>
-      </div>
-      <div class="skill-card reveal tilt">
-        <span class="skill-index">C</span>
-        <h3>Development</h3>
-        <p>Flutter, Firebase, MySQL, Web Development</p>
-      </div>
-      <div class="skill-card reveal tilt">
-        <span class="skill-index">D</span>
-        <h3>Core Fundamentals</h3>
-        <p>Data Structures &amp; Algorithms, OOP, Database Systems</p>
-      </div>
-      <div class="skill-card reveal tilt">
-        <span class="skill-index">E</span>
-        <h3>Tools</h3>
-        <p>Git, GitHub, VS Code, IntelliJ IDEA, PyCharm</p>
-      </div>
-      <div class="skill-card reveal tilt">
-        <span class="skill-index">F</span>
-        <h3>Soft Skills</h3>
-        <p>Problem Solving, Analytical Thinking, Collaboration, Adaptability</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS / LOOKBOOK -->
-  <section id="projects" class="section projects">
-    <div class="section-head reveal">
-      <p class="section-label">03 — Selected Work</p>
-      <h2>Seven builds, <span class="italic">one habit —</span> shipping.</h2>
-      <p class="section-hint">Every card opens the repo (or live demo) in a new tab.</p>
-    </div>
-
-    <div class="lookbook" id="lookbook">
-
-      <!-- CHANGE THE href BELOW ON EACH <a class="drop"> TO YOUR REAL REPO URL WHERE NOTED -->
-      <a class="drop reveal swatch-triora tilt" href="https://github.com/ZRARAKBAR/TRIORA" target="_blank" rel="noopener">
-        <div class="drop-panel">
-          <span class="drop-tag">FLAGSHIP</span>
-          <span class="drop-code">DROP / 01</span>
-        </div>
-        <div class="drop-info">
-          <h3>TRIORA</h3>
-          <p class="drop-desc">A fashion e-commerce platform built for product
-            browsing, shopping and admin management — storefront, cart and
-            checkout logic, and a back-office for catalog control.</p>
-          <p class="drop-tech">React · Firebase · JavaScript</p>
-          <span class="drop-link">View repository <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-
-      <!-- VERIFY: real repo link is shortened on LinkedIn (lnkd.in/duxAi7By) — swap this href for the expanded URL -->
-      <a class="drop reveal swatch-skillink tilt" href="https://github.com/ZRARAKBAR/SkilLink" target="_blank" rel="noopener">
-        <div class="drop-panel">
-          <span class="drop-tag">EXPO PROJECT</span>
-          <span class="drop-code">DROP / 02</span>
-        </div>
-        <div class="drop-info">
-          <h3>SkilLink</h3>
-          <p class="drop-desc">A platform connecting skilled workers with
-            customers — worker profiles, service listings, job requests,
-            in-app communication and a rating system. Presented live at our
-            university's Project Expo with two teammates.</p>
-          <p class="drop-tech">Flutter · Firebase</p>
-          <span class="drop-link">View repository <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-
-      <a class="drop reveal swatch-flyrank tilt" href="https://github.com/ZRARAKBAR/flyrank-ml-internship" target="_blank" rel="noopener">
-        <div class="drop-panel">
-          <span class="drop-tag">84% ACCURACY</span>
-          <span class="drop-code">DROP / 03</span>
-        </div>
-        <div class="drop-info">
-          <h3>Content Refresh Prioritization Model</h3>
-          <p class="drop-desc">A classification model that flags web pages
-            losing organic ranking and prioritizes them for content refresh —
-            time-decay features engineered from historical search position data,
-            built during my FlyRank AI internship.</p>
-          <p class="drop-tech">Python · Pandas · NumPy · Scikit-Learn</p>
-          <span class="drop-link">View repository <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-
-      <a class="drop reveal swatch-medibot tilt" href="https://github.com/ZRARAKBAR/MediBot" target="_blank" rel="noopener">
-        <div class="drop-panel">
-          <span class="drop-tag">LIVE NOW</span>
-          <span class="drop-code">DROP / 04</span>
-        </div>
-        <div class="drop-info">
-          <h3>MediBot</h3>
-          <p class="drop-desc">An AI-powered healthcare assistant giving
-            instant health guidance through an interactive chat experience.
-            Live first prototype — rule-based intent matching today, with
-            computer vision and voice interaction on the roadmap.</p>
-          <p class="drop-tech">Python · Flask · Rule-Based AI</p>
-          <span class="drop-link">View repository <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-
-      <!-- VERIFY: no public repo yet per LinkedIn ("coming soon") — currently points to GitHub profile -->
-      <a class="drop reveal swatch-genuity tilt" href="https://github.com/ZRARAKBAR" target="_blank" rel="noopener">
-        <div class="drop-panel">
-          <span class="drop-tag">IN PROGRESS</span>
-          <span class="drop-code">DROP / 05</span>
-        </div>
-        <div class="drop-info">
-          <h3>Genuity</h3>
-          <p class="drop-desc">A blockchain product-verification system built
-            from scratch — AES/DES-secured admin login shipped first, with
-            smart contracts, QR authenticity scanning and AI anomaly
-            detection next on the build list.</p>
-          <p class="drop-tech">Blockchain · AES/DES · Smart Contracts</p>
-          <span class="drop-link">View on GitHub <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-
-      <a class="drop reveal swatch-kitchenlink tilt" href="https://github.com/ZRARAKBAR/KitchenLink" target="_blank" rel="noopener">
-        <div class="drop-panel">
-          <span class="drop-tag">UNIVERSITY PROJECT</span>
-          <span class="drop-code">DROP / 06</span>
-        </div>
-        <div class="drop-info">
-          <h3>KitchenLink</h3>
-          <p class="drop-desc">A food order management system built in
-            3rd semester — admin panel, live customer ordering, a kitchen
-            panel for tracking active orders, and an analytics dashboard
-            for revenue and top sellers.</p>
-          <p class="drop-tech">Java Swing · MySQL · OOP</p>
-          <span class="drop-link">View repository <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-
-      <a class="drop reveal swatch-arduino tilt" href="https://github.com/ZRARAKBAR/arduino-motion-optimization" target="_blank" rel="noopener">
-        <div class="drop-panel">
-          <span class="drop-tag">−28% FILE SIZE</span>
-          <span class="drop-code">DROP / 07</span>
-        </div>
-        <div class="drop-info">
-          <h3>Arduino Motion Optimization</h3>
-          <p class="drop-desc">A G-code preprocessing engine that strips
-            redundant trajectory points for a 2D CNC plotter — cutting jitter
-            and execution delay on an Arduino Nano.</p>
-          <p class="drop-tech">Python · G-Code Parsing · Vector Processing</p>
-          <span class="drop-link">View repository <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-      </a>
-
-      <article class="drop drop-cta reveal">
-        <div class="drop-cta-inner">
-          <p class="section-label">DROP / 08</p>
-          <h3>More is currently<br>in production.</h3>
-          <p>This slot updates with future projects and my FlyRank internship capstone.</p>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- EXPERIENCE -->
-  <section id="experience" class="section experience">
-    <div class="section-head reveal">
-      <p class="section-label">04 — Experience</p>
-      <h2>Time <span class="italic">on the clock.</span></h2>
-    </div>
-
-    <div class="timeline">
-      <div class="timeline-line" aria-hidden="true"><span id="timelineFill"></span></div>
-
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <p class="timeline-role">General AI Fluency Intern</p>
-          <h3>FlyRank</h3>
-          <p>Practical AI workflows, agent development, evaluation and
-            machine-learning-related tasks — including the content refresh
-            prioritization model shipped during the track.</p>
-        </div>
-      </div>
-
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <p class="timeline-role">Independent Builder</p>
-          <h3>TRIORA &amp; SkilLink</h3>
-          <p>Designed and shipped two full platforms end-to-end — from
-            database schema and auth to storefront and admin UI — as
-            independent projects outside coursework.</p>
-        </div>
-      </div>
-
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <p class="timeline-role">Bachelor of Science, Computer Science</p>
-          <h3>COMSATS University Islamabad, Sahiwal Campus</h3>
-          <p>Expected graduation 2027, currently in 5th semester — coursework
-            spanning Data Structures &amp; Algorithms, OOP and Database Systems.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section contact">
-    <div class="contact-inner">
-      <p class="section-label reveal">05 — Contact</p>
-      <h2 class="reveal">Let's build<br><span class="italic">something worth shipping.</span></h2>
-      <p class="contact-copy reveal">
-        Open to internships, collaboration, and conversations about software,
-        AI and ML. Fastest way to reach me is a direct message — or book a call.
+      <p>
+        Every project is another orbit around the same goal:
+        <strong>build something useful and understand why it works.</strong>
       </p>
 
-      <div class="contact-actions reveal">
-        <a href="mailto:zrarakbar1@gmail.com" class="btn btn-primary magnetic"><span>Email Me</span></a>
-        <a href="https://www.linkedin.com/in/muhammad-zrar-akbar-5656ba365" target="_blank" class="btn btn-ghost magnetic"><span>LinkedIn</span></a>
-        <a href="https://github.com/ZRARAKBAR" target="_blank" class="btn btn-ghost magnetic"><span>GitHub</span></a>
-        <a href="tel:+923226614394" class="btn btn-ghost magnetic"><span>Book a Call</span></a>
+    </div>
+
+
+    <div class="system-visual reveal">
+
+      <div class="solar-system">
+
+        <div class="solar-orbit solar-orbit-a">
+          <span class="planet planet-python">PY</span>
+        </div>
+
+        <div class="solar-orbit solar-orbit-b">
+          <span class="planet planet-ai">AI</span>
+        </div>
+
+        <div class="solar-orbit solar-orbit-c">
+          <span class="planet planet-ml">ML</span>
+        </div>
+
+        <div class="solar-orbit solar-orbit-d">
+          <span class="planet planet-web">WEB</span>
+        </div>
+
+        <div class="solar-orbit solar-orbit-e">
+          <span class="planet planet-flutter">FL</span>
+        </div>
+
+        <div class="solar-core">
+          <span>ZA</span>
+        </div>
+
       </div>
 
-      <div class="contact-meta reveal">
-        <span>zrarakbar1@gmail.com</span>
-        <span>+92 322 6614394</span>
-        <span>Sahiwal, Punjab, Pakistan</span>
-      </div>
     </div>
-  </section>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section id="about" class="section about">
+
+  <div class="section-head reveal">
+
+    <p class="section-label">
+      01 — About
+    </p>
+
+    <h2>
+      Building, learning,
+      <span class="italic">experimenting.</span>
+    </h2>
+
+  </div>
+
+
+  <div class="about-grid">
+
+    <div class="about-copy reveal">
+
+      <p>
+        I'm a Computer Science undergraduate specializing in Python,
+        data preprocessing, and machine learning workflows. I build
+        data-driven systems, rule-based AI engines, and
+        motion-optimization software — from full-stack platforms
+        with real users to focused AI systems that solve one problem
+        well.
+      </p>
+
+      <p>
+        I'm currently a
+        <strong>Machine Learning Intern at FlyRank AI</strong>,
+        working through practical AI workflows, agent development,
+        evaluation and machine-learning-related tasks.
+      </p>
+
+    </div>
+
+
+    <div class="spec-card reveal tilt">
+
+      <p class="spec-title">
+        Spec sheet
+      </p>
+
+      <dl>
+
+        <div class="spec-row">
+          <dt>Status</dt>
+          <dd>BS, Computer Science</dd>
+        </div>
+
+        <div class="spec-row">
+          <dt>Institution</dt>
+          <dd>COMSATS University Islamabad, Sahiwal</dd>
+        </div>
+
+        <div class="spec-row">
+          <dt>Expected</dt>
+          <dd>2028 · Semester 6</dd>
+        </div>
+
+        <div class="spec-row">
+          <dt>CGPA</dt>
+          <dd>2.79 / 4.00</dd>
+        </div>
+
+        <div class="spec-row">
+          <dt>Focus</dt>
+          <dd>Python · Data · AI/ML</dd>
+        </div>
+
+        <div class="spec-row">
+          <dt>Based in</dt>
+          <dd>Sahiwal, Punjab, PK</dd>
+        </div>
+
+      </dl>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SKILLS
+========================================================= -->
+
+<section id="skills" class="section skills">
+
+  <div class="section-head reveal">
+
+    <p class="section-label">
+      02 — Skills
+    </p>
+
+    <h2>
+      The stack behind
+      <span class="italic">the work.</span>
+    </h2>
+
+  </div>
+
+
+  <div class="skills-grid">
+
+    <div class="skill-card reveal tilt">
+
+      <span class="skill-index">A</span>
+
+      <h3>Languages</h3>
+
+      <p>
+        Python, C++, Java, SQL
+      </p>
+
+    </div>
+
+
+    <div class="skill-card reveal tilt">
+
+      <span class="skill-index">B</span>
+
+      <h3>Machine Learning &amp; Data</h3>
+
+      <p>
+        NumPy, Pandas, Scikit-Learn,
+        Data Preprocessing, Feature Engineering
+      </p>
+
+    </div>
+
+
+    <div class="skill-card reveal tilt">
+
+      <span class="skill-index">C</span>
+
+      <h3>Development</h3>
+
+      <p>
+        Flutter, Firebase, MySQL,
+        HTML, CSS, JavaScript, Web Development
+      </p>
+
+    </div>
+
+
+    <div class="skill-card reveal tilt">
+
+      <span class="skill-index">D</span>
+
+      <h3>AI &amp; Intelligent Systems</h3>
+
+      <p>
+        Rule-Based AI, Machine Learning,
+        AI Agents, Data Workflows
+      </p>
+
+    </div>
+
+
+    <div class="skill-card reveal tilt">
+
+      <span class="skill-index">E</span>
+
+      <h3>Core Fundamentals</h3>
+
+      <p>
+        Data Structures &amp; Algorithms,
+        OOP, Database Systems
+      </p>
+
+    </div>
+
+
+    <div class="skill-card reveal tilt">
+
+      <span class="skill-index">F</span>
+
+      <h3>Tools</h3>
+
+      <p>
+        Git, GitHub, VS Code,
+        IntelliJ IDEA, PyCharm
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PROJECTS
+========================================================= -->
+
+<section id="projects" class="section projects">
+
+  <div class="section-head reveal">
+
+    <p class="section-label">
+      03 — Selected Work
+    </p>
+
+    <h2>
+      Seven builds,
+      <span class="italic">one habit —</span>
+      shipping.
+    </h2>
+
+    <p class="section-hint">
+      Every card opens the repository in a new tab.
+    </p>
+
+  </div>
+
+
+  <div class="lookbook" id="lookbook">
+
+
+    <a
+      class="drop reveal swatch-triora tilt"
+      href="https://github.com/ZRARAKBAR/TRIORA"
+      target="_blank"
+      rel="noopener"
+    >
+
+      <div class="drop-panel">
+
+        <span class="drop-tag">
+          FLAGSHIP
+        </span>
+
+        <span class="drop-code">
+          DROP / 01
+        </span>
+
+      </div>
+
+
+      <div class="drop-info">
+
+        <h3>TRIORA</h3>
+
+        <p class="drop-desc">
+          A fashion e-commerce platform built for product browsing,
+          shopping and admin management — storefront, cart and
+          checkout logic, and a back-office for catalog control.
+        </p>
+
+        <p class="drop-tech">
+          React · Firebase · JavaScript
+        </p>
+
+        <span class="drop-link">
+          View repository
+          <svg width="14" height="14" viewBox="0 0 24 24"
+            fill="none">
+            <path
+              d="M7 17L17 7M17 7H8M17 7V16"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+
+      </div>
+
+    </a>
+
+
+
+    <a
+      class="drop reveal swatch-skillink tilt"
+      href="https://github.com/ZRARAKBAR/SkilLink"
+      target="_blank"
+      rel="noopener"
+    >
+
+      <div class="drop-panel">
+
+        <span class="drop-tag">
+          EXPO PROJECT
+        </span>
+
+        <span class="drop-code">
+          DROP / 02
+        </span>
+
+      </div>
+
+
+      <div class="drop-info">
+
+        <h3>SkilLink</h3>
+
+        <p class="drop-desc">
+          A platform connecting skilled workers with customers —
+          worker profiles, service listings, job requests,
+          communication and ratings.
+        </p>
+
+        <p class="drop-tech">
+          Flutter · Firebase
+        </p>
+
+        <span class="drop-link">
+          View repository
+          <svg width="14" height="14" viewBox="0 0 24 24"
+            fill="none">
+            <path
+              d="M7 17L17 7M17 7H8M17 7V16"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+
+      </div>
+
+    </a>
+
+
+
+    <a
+      class="drop reveal swatch-flyrank tilt"
+      href="https://github.com/ZRARAKBAR/flyrank-ml-internship"
+      target="_blank"
+      rel="noopener"
+    >
+
+      <div class="drop-panel">
+
+        <span class="drop-tag">
+          FLYRANK
+        </span>
+
+        <span class="drop-code">
+          DROP / 03
+        </span>
+
+      </div>
+
+
+      <div class="drop-info">
+
+        <h3>
+          Content Refresh Prioritization Model
+        </h3>
+
+        <p class="drop-desc">
+          A machine-learning workflow that identifies pages losing
+          organic search performance and prioritizes them for
+          content refresh using engineered historical-search features.
+        </p>
+
+        <p class="drop-tech">
+          Python · Pandas · NumPy · Scikit-Learn
+        </p>
+
+        <span class="drop-link">
+          View repository
+          <svg width="14" height="14" viewBox="0 0 24 24"
+            fill="none">
+            <path
+              d="M7 17L17 7M17 7H8M17 7V16"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+
+      </div>
+
+    </a>
+
+
+
+    <a
+      class="drop reveal swatch-medibot tilt"
+      href="https://github.com/ZRARAKBAR/MediBot"
+      target="_blank"
+      rel="noopener"
+    >
+
+      <div class="drop-panel">
+
+        <span class="drop-tag">
+          AI PROJECT
+        </span>
+
+        <span class="drop-code">
+          DROP / 04
+        </span>
+
+      </div>
+
+
+      <div class="drop-info">
+
+        <h3>MediBot</h3>
+
+        <p class="drop-desc">
+          An AI-powered healthcare assistant providing instant
+          health guidance through an interactive conversational
+          experience.
+        </p>
+
+        <p class="drop-tech">
+          Python · Flask · Rule-Based AI
+        </p>
+
+        <span class="drop-link">
+          View repository
+          <svg width="14" height="14" viewBox="0 0 24 24"
+            fill="none">
+            <path
+              d="M7 17L17 7M17 7H8M17 7V16"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+
+      </div>
+
+    </a>
+
+
+
+    <a
+      class="drop reveal swatch-genuity tilt"
+      href="https://github.com/ZRARAKBAR"
+      target="_blank"
+      rel="noopener"
+    >
+
+      <div class="drop-panel">
+
+        <span class="drop-tag">
+          IN PROGRESS
+        </span>
+
+        <span class="drop-code">
+          DROP / 05
+        </span>
+
+      </div>
+
+
+      <div class="drop-info">
+
+        <h3>Genuity</h3>
+
+        <p class="drop-desc">
+          A product-verification concept combining secure
+          authentication, blockchain verification and future
+          QR-based authenticity workflows.
+        </p>
+
+        <p class="drop-tech">
+          Blockchain · Security · Smart Contracts
+        </p>
+
+        <span class="drop-link">
+          View on GitHub
+          <svg width="14" height="14" viewBox="0 0 24 24"
+            fill="none">
+            <path
+              d="M7 17L17 7M17 7H8M17 7V16"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+
+      </div>
+
+    </a>
+
+
+
+    <a
+      class="drop reveal swatch-kitchenlink tilt"
+      href="https://github.com/ZRARAKBAR/KitchenLink"
+      target="_blank"
+      rel="noopener"
+    >
+
+      <div class="drop-panel">
+
+        <span class="drop-tag">
+          UNIVERSITY PROJECT
+        </span>
+
+        <span class="drop-code">
+          DROP / 06
+        </span>
+
+      </div>
+
+
+      <div class="drop-info">
+
+        <h3>KitchenLink</h3>
+
+        <p class="drop-desc">
+          A food order management system with customer ordering,
+          administration, kitchen order tracking and analytics.
+        </p>
+
+        <p class="drop-tech">
+          Java Swing · MySQL · OOP
+        </p>
+
+        <span class="drop-link">
+          View repository
+          <svg width="14" height="14" viewBox="0 0 24 24"
+            fill="none">
+            <path
+              d="M7 17L17 7M17 7H8M17 7V16"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+
+      </div>
+
+    </a>
+
+
+
+    <a
+      class="drop reveal swatch-arduino tilt"
+      href="https://github.com/ZRARAKBAR/arduino-motion-optimization"
+      target="_blank"
+      rel="noopener"
+    >
+
+      <div class="drop-panel">
+
+        <span class="drop-tag">
+          OPTIMIZATION
+        </span>
+
+        <span class="drop-code">
+          DROP / 07
+        </span>
+
+      </div>
+
+
+      <div class="drop-info">
+
+        <h3>
+          Arduino Motion Optimization
+        </h3>
+
+        <p class="drop-desc">
+          A G-code preprocessing engine that removes redundant
+          trajectory points for a 2D CNC plotter, reducing
+          unnecessary motion and execution overhead.
+        </p>
+
+        <p class="drop-tech">
+          Python · G-Code · Vector Processing
+        </p>
+
+        <span class="drop-link">
+          View repository
+          <svg width="14" height="14" viewBox="0 0 24 24"
+            fill="none">
+            <path
+              d="M7 17L17 7M17 7H8M17 7V16"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+
+      </div>
+
+    </a>
+
+
+
+    <article class="drop drop-cta reveal">
+
+      <div class="drop-cta-inner">
+
+        <p class="section-label">
+          DROP / 08
+        </p>
+
+        <h3>
+          More is currently
+          <br>
+          in production.
+        </h3>
+
+        <p>
+          This space is reserved for future experiments,
+          AI systems and internship work.
+        </p>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     EXPERIENCE
+========================================================= -->
+
+<section id="experience" class="section experience">
+
+  <div class="section-head reveal">
+
+    <p class="section-label">
+      04 — Experience
+    </p>
+
+    <h2>
+      Time
+      <span class="italic">on the clock.</span>
+    </h2>
+
+  </div>
+
+
+  <div class="timeline">
+
+    <div class="timeline-line">
+      <span id="timelineFill"></span>
+    </div>
+
+
+    <div class="timeline-item reveal">
+
+      <div class="timeline-dot"></div>
+
+      <div class="timeline-content tilt">
+
+        <p class="timeline-role">
+          Machine Learning Internship · Jul 2026 – Present · Remote
+        </p>
+
+        <h3>
+          FlyRank AI
+        </h3>
+
+        <p>
+          Hands-on experience in machine learning, AI workflows,
+          agent development and evaluation, including work on
+          content-refresh prioritization and practical AI fluency tasks.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="timeline-item reveal">
+
+      <div class="timeline-dot"></div>
+
+      <div class="timeline-content tilt">
+
+        <p class="timeline-role">
+          Independent Builder
+        </p>
+
+        <h3>
+          TRIORA, SkilLink &amp; MediBot
+        </h3>
+
+        <p>
+          Designed and developed platforms and intelligent systems
+          spanning e-commerce, mobile applications and rule-based AI.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="timeline-item reveal">
+
+      <div class="timeline-dot"></div>
+
+      <div class="timeline-content tilt">
+
+        <p class="timeline-role">
+          Bachelor of Science, Computer Science
+        </p>
+
+        <h3>
+          COMSATS University Islamabad, Sahiwal Campus
+        </h3>
+
+        <p>
+          Expected graduation 2028, currently in 6th semester,
+          with coursework across algorithms, machine learning,
+          operating systems, databases, web development and
+          software fundamentals.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CERTIFICATIONS
+========================================================= -->
+
+<section id="certifications" class="section certifications">
+
+  <div class="section-head reveal">
+
+    <p class="section-label">
+      05 — Certifications
+    </p>
+
+    <h2>
+      Proof,
+      <span class="italic">on the record.</span>
+    </h2>
+
+    <p class="section-hint">
+      Hover a card to flip it.
+    </p>
+
+  </div>
+
+
+  <div class="cert-grid">
+
+
+    <div class="cert-card reveal">
+
+      <div class="cert-card-inner">
+
+        <div class="cert-face cert-front">
+
+          <p class="cert-issuer">
+            ANTHROPIC ACADEMY
+          </p>
+
+          <h3 class="cert-title">
+            Claude Code 101
+          </h3>
+
+        </div>
+
+        <div class="cert-face cert-back">
+
+          <p class="cert-back-label">
+            COMPLETED VIA
+          </p>
+
+          <p class="cert-back-value">
+            FlyRank AI Internship
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="cert-card reveal">
+
+      <div class="cert-card-inner">
+
+        <div class="cert-face cert-front">
+
+          <p class="cert-issuer">
+            ANTHROPIC ACADEMY
+          </p>
+
+          <h3 class="cert-title">
+            Claude 101
+          </h3>
+
+        </div>
+
+        <div class="cert-face cert-back">
+
+          <p class="cert-back-label">
+            COMPLETED VIA
+          </p>
+
+          <p class="cert-back-value">
+            FlyRank AI Internship
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="cert-card reveal">
+
+      <div class="cert-card-inner">
+
+        <div class="cert-face cert-front">
+
+          <p class="cert-issuer">
+            ANTHROPIC ACADEMY
+          </p>
+
+          <h3 class="cert-title">
+            AI Fluency: Framework &amp; Foundations
+          </h3>
+
+        </div>
+
+        <div class="cert-face cert-back">
+
+          <p class="cert-back-label">
+            COMPLETED VIA
+          </p>
+
+          <p class="cert-back-value">
+            FlyRank AI Internship
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="cert-card reveal">
+
+      <div class="cert-card-inner">
+
+        <div class="cert-face cert-front">
+
+          <p class="cert-issuer">
+            KAGGLE
+          </p>
+
+          <h3 class="cert-title">
+            Python
+          </h3>
+
+        </div>
+
+        <div class="cert-face cert-back">
+
+          <p class="cert-back-label">
+            ISSUED
+          </p>
+
+          <p class="cert-back-value">
+            September 2025
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="cert-card reveal">
+
+      <div class="cert-card-inner">
+
+        <div class="cert-face cert-front">
+
+          <p class="cert-issuer">
+            ANALYTICS VIDHYA
+          </p>
+
+          <h3 class="cert-title">
+            n8n: A Complete Guide to the Automation Tool
+          </h3>
+
+        </div>
+
+        <div class="cert-face cert-back">
+
+          <p class="cert-back-label">
+            CREDENTIAL ID
+          </p>
+
+          <p class="cert-back-value">
+            w3lvr0f4zl
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CONTACT
+     THIS IS THE ONLY LIVE FEATURE
+========================================================= -->
+
+<section id="contact" class="section contact">
+
+  <div class="contact-space-layer" aria-hidden="true">
+
+    <div class="contact-orbit contact-orbit-one">
+      <span></span>
+    </div>
+
+    <div class="contact-orbit contact-orbit-two">
+      <span></span>
+    </div>
+
+    <div class="contact-satellite">
+      <i></i>
+    </div>
+
+  </div>
+
+
+  <div class="contact-inner">
+
+    <p class="section-label reveal">
+      06 — Contact
+    </p>
+
+
+    <h2 class="reveal">
+      Let's build
+      <br>
+      <span class="italic">
+        something worth shipping.
+      </span>
+    </h2>
+
+
+    <p class="contact-copy reveal">
+
+      Open to internships, collaboration, and conversations about
+      software, AI and ML. Send a message below — it comes directly
+      to my inbox.
+
+    </p>
+
+
+    <!--
+      ==========================================================
+      FLYRANK WEEK 6 LIVE FEATURE
+
+      Create a FREE form at:
+      https://formspree.io
+
+      Then replace YOUR_FORM_ID with your actual Formspree ID.
+
+      Example:
+      https://formspree.io/f/xabcdefg
+      ==========================================================
+    -->
+
+    <form
+      id="contactForm"
+      class="contact-form reveal tilt"
+      action="https://formspree.io/f/xrpzjywd"
+      method="POST"
+    >
+
+      <div class="form-heading">
+
+        <span>
+          TRANSMISSION
+        </span>
+
+        <small>
+          LIVE CONTACT CHANNEL
+        </small>
+
+      </div>
+
+
+      <div class="form-row">
+
+        <label for="cf-name">
+          Name
+        </label>
+
+        <input
+          type="text"
+          id="cf-name"
+          name="name"
+          placeholder="Your name"
+          required
+          autocomplete="name"
+        >
+
+      </div>
+
+
+      <div class="form-row">
+
+        <label for="cf-email">
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="cf-email"
+          name="email"
+          placeholder="you@example.com"
+          required
+          autocomplete="email"
+        >
+
+      </div>
+
+
+      <div class="form-row">
+
+        <label for="cf-message">
+          Message
+        </label>
+
+        <textarea
+          id="cf-message"
+          name="message"
+          rows="5"
+          placeholder="Tell me what you're building..."
+          required
+        ></textarea>
+
+      </div>
+
+
+      <input
+        type="hidden"
+        name="_subject"
+        value="New Portfolio Contact — Zrar Akbar"
+      >
+
+
+      <button
+        type="submit"
+        class="btn btn-primary magnetic form-submit"
+      >
+
+        <span>
+          Send Message
+        </span>
+
+      </button>
+
+
+      <p
+        class="form-status"
+        id="formStatus"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+    </form>
+
+
+    <div class="contact-actions reveal">
+
+      <a
+        href="mailto:zrarakbar1@gmail.com"
+        class="btn btn-ghost magnetic"
+      >
+        <span>Email Directly</span>
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/muhammad-zrar-akbar-5656ba365"
+        target="_blank"
+        rel="noopener"
+        class="btn btn-ghost magnetic"
+      >
+        <span>LinkedIn</span>
+      </a>
+
+      <a
+        href="https://github.com/ZRARAKBAR"
+        target="_blank"
+        rel="noopener"
+        class="btn btn-ghost magnetic"
+      >
+        <span>GitHub</span>
+      </a>
+
+    </div>
+
+
+    <div class="contact-meta reveal">
+
+      <span>
+        zrarakbar1@gmail.com
+      </span>
+
+      <span>
+        +92 322 6614394
+      </span>
+
+      <span>
+        Sahiwal, Punjab, Pakistan
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
 
 </main>
 
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
 <footer>
+
   <div class="footer-inner">
-    <a href="#top" class="logo">ZRAR<span>·</span>AKBAR</a>
-    <p>© 2026 Muhammad Zrar Akbar. Built and deployed independently.</p>
+
+    <a href="#top" class="logo">
+      ZRAR<span>·</span>AKBAR
+    </a>
+
+    <p>
+      © 2026 Muhammad Zrar Akbar.
+      Built and deployed independently.
+    </p>
+
     <div class="footer-links">
-      <a href="https://github.com/ZRARAKBAR" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/muhammad-zrar-akbar-5656ba365" target="_blank">LinkedIn</a>
-      <a href="assets/cv.pdf" target="_blank">CV</a>
+
+      <a
+        href="https://github.com/ZRARAKBAR"
+        target="_blank"
+        rel="noopener"
+      >
+        GitHub
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/muhammad-zrar-akbar-5656ba365"
+        target="_blank"
+        rel="noopener"
+      >
+        LinkedIn
+      </a>
+
+      <a
+        href="assets/cv.pdf"
+        target="_blank"
+        rel="noopener"
+      >
+        CV
+      </a>
+
     </div>
+
   </div>
+
 </footer>
 
+
 <script src="script.js"></script>
+
 </body>
 </html>
